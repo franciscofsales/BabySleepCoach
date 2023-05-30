@@ -51,7 +51,7 @@ class SleepyBaby():
         self.fps = 30
         self.mpPose = mp.solutions.pose
         self.mpFace = mp.solutions.face_mesh
-        self.pose = self.mpPose.Pose(min_detection_confidence=0.7, min_tracking_confidence=0.7)
+        self.pose = self.mpPose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5)
         # TODO: try turning off refine_landmarks for performance, might not be needed
         self.face = self.mpFace.FaceMesh(max_num_faces=1, refine_landmarks=True, min_detection_confidence=0.8, min_tracking_confidence=0.8)
         self.mpDraw = mp.solutions.drawing_utils
@@ -337,7 +337,10 @@ class SleepyBaby():
         self.periodic_wakeness_check()
 
         if os.getenv("DEBUG", 'False').lower() in ('true', '1'):
-            avg_awake = sum(self.awake_q) / len(self.awake_q)
+            if len(self.awake_q) > 0:
+                avg_awake = sum(self.awake_q) / len(self.awake_q)
+            else:
+                avg_awake = sum(self.awake_q) / 1
 
             # draw progress bar
             bar_y_offset = 0
@@ -383,10 +386,10 @@ class SleepyBaby():
 
                     if all(e is not None for e in [frame, img]):
                         # bounds to actual run models/analysis on...no need to look for babies outside of the crib
-                        x = 800
-                        y = 250
-                        h = 650
-                        w = 600
+                        x = 500
+                        y = 0
+                        h = 1080
+                        w = 800
 
                         if img.shape[0] > 1080 and img.shape[1] > 1920: # max res 1080p
                             img = maintain_aspect_ratio_resize(img, width=self.frame_dim[0], height=self.frame_dim[1])
@@ -465,9 +468,9 @@ class SleepyBaby():
                     continue
 
                 # bounds to actual run models/analysis on...no need to look for babies outside of the crib
-                x = 700
-                y = 125
-                h = 1000
+                x = 500
+                y = 0
+                h = 1080
                 w = 800
 
                 if img.shape[0] > 1080 and img.shape[1] > 1920: # max res 1080p
@@ -567,6 +570,9 @@ p1 = Thread(target=receive, args=(frame_q,))
 p2 = Thread(target=sleepy_baby.live, args=(frame_q,))
 p1.start()
 p2.start()
+
+# NOTE: on mac comment out p2 and run it on the main thread (open CV won't work)
+# sleepy_baby.live(frame_q)
 
 # Note: to test w/ recorded footage, comment out above threads, and uncomment next line
 # TODO: use command line args rather than commenting out code
