@@ -1,0 +1,8 @@
+build_docker_web.sh
+build_docker_worker.sh
+LICENCE
+README.md
+node_modules
+webapp/node_modules
+.env
+sleepy_logs.log

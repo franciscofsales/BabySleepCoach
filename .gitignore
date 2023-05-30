@@ -1,4 +1,5 @@
 *
+!.dockerignore
 !.gitignore
 !LICENSE
 !README.md
@@ -6,10 +7,10 @@
 !helpers.py
 !webapp
 !webapp/**
-node_modules
-build
 !sleep_logs.csv
 !*.ipynb
 !requirements.txt
 !.env_sample
 !.env_sample_docker
+webapp/node_modules
+webapp/build
