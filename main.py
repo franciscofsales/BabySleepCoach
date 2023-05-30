@@ -85,7 +85,7 @@ class SleepyBaby():
             (17, 314), (314, 405), (405, 321), (321, 375),
             (78, 95), (95, 88), (88, 178), (178, 87), (87, 14),
             (14, 317), (317, 402), (402, 318), (318, 324),
-        ]) 
+        ])
 
 
     # Decorator ensures function that can only be called once every `s` seconds.
@@ -146,7 +146,7 @@ class SleepyBaby():
                 #     for landmark_id, landmark in enumerate(results_pose.pose_landmarks):
                 #         if landmark_id <= CUTOFF_THRESHOLD:
                 #             landmark.visibility = 0
-                #     self.mpDraw.draw_landmarks(debug_img, results_pose.pose_landmarks, MY_CONNECTIONS) 
+                #     self.mpDraw.draw_landmarks(debug_img, results_pose.pose_landmarks, MY_CONNECTIONS)
 
                 for id, lm in enumerate(results_pose.pose_landmarks.landmark):
                     if id <= CUTOFF_THRESHOLD:
@@ -173,7 +173,7 @@ class SleepyBaby():
             self.throttled_handle_no_body_found()
 
         LEFT_EYE = [362, 382, 381, 380, 374, 373, 390, 249, 263, 466, 388, 387, 386, 385, 384, 398]
-        RIGHT_EYE = [33, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160, 161, 246] 
+        RIGHT_EYE = [33, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160, 161, 246]
 
         if results.multi_face_landmarks:
             self.multi_face_landmarks = results.multi_face_landmarks
@@ -198,7 +198,7 @@ class SleepyBaby():
 
         else: # no face results, interpret this as baby is not in crib, i.e. awake
             self.throttled_handle_no_eyes_found()
- 
+
         return debug_img, body_found
 
 
@@ -338,7 +338,7 @@ class SleepyBaby():
 
         if os.getenv("DEBUG", 'False').lower() in ('true', '1'):
             avg_awake = sum(self.awake_q) / len(self.awake_q)
-            
+
             # draw progress bar
             bar_y_offset = 0
             bar_y_offset = 100
@@ -479,7 +479,7 @@ class SleepyBaby():
 
                 # reapply cropped and modified/marked up img back to img which is displayed
                 img[y:y+h, x:x+w] = debug_img
-                 
+
                 if os.getenv("DEBUG", 'False').lower() in ('true', '1'):
                     try:
                         cv2.rectangle(img=img, pt1=(x, y), pt2=(x+w, y+h), color=[153,50,204], thickness=2)
