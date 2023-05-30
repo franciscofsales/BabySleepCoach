@@ -12,5 +12,8 @@
 !requirements.txt
 !.env_sample
 !.env_sample_docker
+!start_docker.sh
+!build_docker_web.sh
+!build_docker_worker.sh
 webapp/node_modules
 webapp/build
